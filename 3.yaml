@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fastapi-pod
+  labels:
+    app: fastapi
+spec:
+  containers:
+  - name: fastapi-container
+    image: mohan14242/fastapi  # Replace with your Docker image
+    ports:
+    - containerPort: 8000
+    env:
+    - name: ENVIRONMENT
+      value: "production"  # Example environment variable
+    command: ["uvicorn"]
+    args: ["main:app", "--host", "0.0.0.0", "--port", "8000"]
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-service
+spec:
+  selector:
+    app: fastapi
+  ports:
+    - protocol: TCP
+      port: 80         # Port that the service will expose
+      targetPort: 8000 # Port on the container
+      nodePort: 30007  # NodePort in the range 30000-32767
+  type: NodePort
+
