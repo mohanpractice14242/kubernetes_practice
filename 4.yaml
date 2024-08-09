@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: fastapi-container
-        image: mohan14242/fastapi:2.0
+        image: mohan14242/fastapi:3.0
         ports:
         - containerPort: 8000
 --- 
